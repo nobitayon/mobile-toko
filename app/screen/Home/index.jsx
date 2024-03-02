@@ -1,13 +1,18 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Card, TitleSection } from '../../components/Atoms'
 
 const Home = () => {
+
+    const [data, setData] = useState([])
+
     const getProducts = useCallback(() => {
-        fetch('https://fakestoreapi.com/products/1')
-        .then(res => res.json())
-        .then(json => console.log(json))
+        fetch('https://fakestoreapi.com/products')
+            .then(res => res.json())
+            .then(json => {
+                setData(json.slice(0, 3))
+            })
     }, [])
 
     useEffect(() => {
@@ -25,28 +30,28 @@ const Home = () => {
             </View>
 
             <View>
-                <TitleSection title="All Products"/>
+                <TitleSection title="All Products" />
                 <View style={styles.wrap}>
-                    {[1, 1, 1].map((item, idx) => (
-                        <Card key={idx}/>
+                    {data.map((item, idx) => (
+                        <Card key={idx} product={item} />
                     ))}
                 </View>
             </View>
 
             <View>
-                <TitleSection title="Products Favourite"/>
+                <TitleSection title="Products Favourite" />
                 <View style={styles.wrap}>
-                    {[1, 1, 1].map((item, idx) => (
-                        <Card key={idx}/>
+                    {data.map((item, idx) => (
+                        <Card key={idx} product={item} />
                     ))}
                 </View>
             </View>
 
             <View>
-                <TitleSection title="Products Favourite"/>
+                <TitleSection title="Products Favourite" />
                 <View style={styles.wrap}>
-                    {[1, 1, 1].map((item, idx) => (
-                        <Card key={idx}/>
+                    {data.map((item, idx) => (
+                        <Card key={idx} product={item} />
                     ))}
                 </View>
             </View>
